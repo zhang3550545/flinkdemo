@@ -1,3 +1,3 @@
 package com.test
 
-case class Student(name: String, age: Int, sex: String, id: String)
+case class Student(name: String, age: Int, sex: String, sid: String)

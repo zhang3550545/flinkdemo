@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 
-object KafkaToMysqlStreaming {
+object KafkaToSinkStreaming {
 
   def main(args: Array[String]): Unit = {
 
@@ -19,6 +19,10 @@ object KafkaToMysqlStreaming {
 
     val sink = new MysqlSink("jdbc:mysql://localhost:3306/test", "root", "root")
     input.addSink(sink)
-    env.execute("KafkaToMysqlStreaming")
+
+    val hBaseSink = new HBaseSink("student", "info")
+    input.addSink(hBaseSink)
+
+    env.execute("KafkaToSinkStreaming")
   }
 }

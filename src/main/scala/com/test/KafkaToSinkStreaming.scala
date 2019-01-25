@@ -13,12 +13,12 @@ object KafkaToSinkStreaming {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
 
     val p = new Properties()
-    p.setProperty("bootstrap.servers", "localhost:9092")
+    p.setProperty("bootstrap.servers", "192.168.32.157:9092")
     p.setProperty("group.id", "test")
     val input = env.addSource(new FlinkKafkaConsumer010[String]("test", new SimpleStringSchema(), p))
 
     // 自定义MysqlSink类，将数据Sink到mysql
-    val sink = new MysqlSink("jdbc:mysql://localhost:3306/test", "root", "root")
+    val sink = new MysqlSink("jdbc:mysql://192.168.32.157:3306/test", "root", "root")
     input.addSink(sink)
 
     // 自定义HBaseSink类，将数据Sink到HBase

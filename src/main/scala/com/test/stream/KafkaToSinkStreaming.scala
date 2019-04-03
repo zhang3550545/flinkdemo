@@ -1,9 +1,10 @@
-package com.test
+package com.test.stream
 
 import java.util.Properties
+
+import com.test.{HBaseSink, MysqlSink}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.streaming.api.scala._
+import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 
 object KafkaToSinkStreaming {

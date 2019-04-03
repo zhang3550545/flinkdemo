@@ -1,5 +1,4 @@
-package com.test
-
+package com.test.window
 
 import org.apache.flink.core.fs.FileSystem
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}

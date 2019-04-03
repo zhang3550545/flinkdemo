@@ -1,5 +1,6 @@
-package com.test
+package com.test.sql
 
+import com.test.{People, Student}
 import org.apache.flink.api.scala.{ExecutionEnvironment, _}
 import org.apache.flink.table.api.TableEnvironment
 import org.apache.flink.table.api.scala._

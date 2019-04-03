@@ -1,4 +1,4 @@
-package com.test
+package com.test.window
 
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.functions.source.SourceFunction

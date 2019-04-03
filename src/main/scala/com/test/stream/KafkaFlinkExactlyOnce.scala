@@ -1,13 +1,12 @@
-package com.test
+package com.test.stream
 
 import java.util.Properties
 
-import com.google.gson.Gson
 import org.apache.flink.api.common.serialization.SimpleStringSchema
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 
-object KafkaJsonStreaming {
+object KafkaFlinkExactlyOnce {
 
   def main(args: Array[String]): Unit = {
 
@@ -17,18 +16,11 @@ object KafkaJsonStreaming {
     p.setProperty("bootstrap.servers", "localhost:9092")
     p.setProperty("group.id", "test")
 
-    val stream = env.addSource(new FlinkKafkaConsumer010[String]("test", new SimpleStringSchema(), p))
+    val streaming = env.addSource(new FlinkKafkaConsumer010[String]("test", new SimpleStringSchema(), p))
 
-    stream.print()
+    streaming.print()
 
-    val result = stream.map { x =>
-      val g = new Gson()
-      val people = g.fromJson(x, classOf[People])
-      people
-    }
+    env.execute("KafkaFlinkExactlyOnce")
 
-    result.print()
-
-    env.execute("KafkaJsonStreaming")
   }
 }

@@ -1,9 +1,9 @@
-package com.test
+package com.test.sql
 
-import org.apache.flink.api.scala.ExecutionEnvironment
+import com.test.Student
+import org.apache.flink.api.scala.{ExecutionEnvironment, _}
 import org.apache.flink.table.api.TableEnvironment
 import org.apache.flink.table.api.scala._
-import org.apache.flink.api.scala._
 
 object ReadTableCsvFile {
 

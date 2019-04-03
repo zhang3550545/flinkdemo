@@ -1,5 +1,6 @@
-package com.test
+package com.test.window
 
+import com.test.WordWithCount
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.api.windowing.time.Time
 

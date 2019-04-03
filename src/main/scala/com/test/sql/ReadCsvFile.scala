@@ -1,5 +1,6 @@
-package com.test
+package com.test.sql
 
+import com.test.Student
 import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.streaming.api.scala._
 

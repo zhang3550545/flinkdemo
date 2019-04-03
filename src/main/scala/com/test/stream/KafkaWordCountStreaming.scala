@@ -1,4 +1,4 @@
-package com.test
+package com.test.stream
 
 import java.util.Properties
 

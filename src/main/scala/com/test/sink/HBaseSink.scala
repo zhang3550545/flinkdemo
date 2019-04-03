@@ -1,11 +1,12 @@
-package com.test
+package com.test.sink
 
 import com.google.gson.Gson
+import com.test.Student
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.sink.{RichSinkFunction, SinkFunction}
-import org.apache.hadoop.hbase.{HBaseConfiguration, HConstants, TableName}
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.{HBaseConfiguration, HConstants, TableName}
 
 class HBaseSink(tableName: String, family: String) extends RichSinkFunction[String] {
 

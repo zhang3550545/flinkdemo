@@ -1,12 +1,13 @@
-package com.test
+package com.test.sink
 
 import java.sql.{Connection, DriverManager}
 
 import com.google.gson.Gson
+import com.test.Student
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.sink.{RichSinkFunction, SinkFunction}
 
-class MysqlSink(url: String, user: String, pwd: String) extends RichSinkFunction[String] {
+class MySQLSink(url: String, user: String, pwd: String) extends RichSinkFunction[String] {
 
   var conn: Connection = _
 

@@ -4,10 +4,7 @@ import java.util.Properties
 
 import org.apache.flink.api.common.typeinfo.Types
 import org.apache.flink.api.scala._
-import org.apache.flink.formats.json.{JsonRowDeserializationSchema, JsonRowFormatFactory}
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.streaming.connectors.kafka.Kafka010TableSource
-import org.apache.flink.table.api.TableSchema
 import org.apache.flink.table.api.scala.StreamTableEnvironment
 import org.apache.flink.table.descriptors.{Json, Kafka, Schema}
 import org.apache.flink.types.Row

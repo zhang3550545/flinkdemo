@@ -24,7 +24,7 @@ object ReadKafkaStreamJob2 {
 
     val tableSchema = new TableSchema.Builder()
       .field("name", Types.STRING)
-      .field("age", Types.STRING)
+      .field("age", Types.BIG_DEC) // Types.DECIMAL	DECIMAL	java.math.BigDecimal
       .field("sex", Types.STRING)
       .field("sid", Types.STRING)
       .build()
@@ -36,7 +36,7 @@ object ReadKafkaStreamJob2 {
         |  "type":"object",
         |  "properties":{
         |       "name":{"type":"string"},
-        |       "age":{"type":"string"},
+        |       "age":{"type":"integer"},
         |       "sex":{"type":"string"},
         |       "sid":{"type":"string"}
         |  }

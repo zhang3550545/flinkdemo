@@ -3,7 +3,7 @@ package com.test.stream
 import java.util.Properties
 
 import com.google.gson.Gson
-import com.test.People
+import com.test.bean.People
 import org.apache.flink.api.common.serialization.SimpleStringSchema
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010

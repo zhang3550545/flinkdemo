@@ -1,10 +1,17 @@
-package com.test.sql
+package com.test.sql.batch
 
-import com.test.{People, Student}
-import org.apache.flink.api.scala.{ExecutionEnvironment, _}
+import com.test.bean.{People, Student}
+import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.table.api.TableEnvironment
-import org.apache.flink.table.api.scala._
+import org.apache.flink.api.scala._
 
+/**
+  * 使用 batch env读取文件，返回DataSet对象，将DataSet对象注册为Table，再用table env通过sql处理
+  *
+  * 使用fromDataSet方法将DataSet对象转成Table
+  *
+  * 使用registerTable 的api注册
+  */
 object ReadTableCsvFile2 {
 
   def main(args: Array[String]): Unit = {
@@ -14,7 +21,7 @@ object ReadTableCsvFile2 {
     val tableEnv = TableEnvironment.getTableEnvironment(env)
 
     // 读取数据
-    val input = env.readCsvFile[Student]("/Users/zhangzhiqiang/Documents/test_project/flinkdemo/data/1.csv")
+    val input = env.readCsvFile[Student]("data/1.csv")
 
     input.print()
 
@@ -30,6 +37,6 @@ object ReadTableCsvFile2 {
     result.printSchema()
 
     // 将数据转化输出
-    result.toDataSet[People].print()
+    tableEnv.toDataSet[People](result).print()
   }
 }

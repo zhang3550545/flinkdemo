@@ -1,7 +1,7 @@
 package com.test.sink
 
 import com.google.gson.Gson
-import com.test.Student
+import com.test.bean.Student
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.sink.{RichSinkFunction, SinkFunction}
 import org.apache.hadoop.hbase.client._

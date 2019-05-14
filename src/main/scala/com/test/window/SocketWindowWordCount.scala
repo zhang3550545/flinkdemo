@@ -1,6 +1,6 @@
 package com.test.window
 
-import com.test.WordWithCount
+import com.test.bean.WordWithCount
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
 import org.apache.flink.streaming.api.windowing.time.Time
 

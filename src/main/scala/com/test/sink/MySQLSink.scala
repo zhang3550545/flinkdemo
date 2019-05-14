@@ -3,7 +3,7 @@ package com.test.sink
 import java.sql.{Connection, DriverManager}
 
 import com.google.gson.Gson
-import com.test.Student
+import com.test.bean.Student
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.sink.{RichSinkFunction, SinkFunction}
 

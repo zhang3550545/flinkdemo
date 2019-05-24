@@ -14,6 +14,7 @@ object ReadKafkaStreamJob3 {
   def main(args: Array[String]): Unit = {
 
     val sEnv = StreamExecutionEnvironment.getExecutionEnvironment
+    sEnv.setParallelism(1)
     val tableEnv = StreamTableEnvironment.create(sEnv)
 
     val p = new Properties()
@@ -27,6 +28,7 @@ object ReadKafkaStreamJob3 {
       .field("age", Types.STRING)
       .field("sex", Types.STRING)
       .field("sid", Types.STRING)
+      .field("timestamp", Types.BIG_DEC)
 
     tableEnv.connect(kafka)
       .withSchema(schema)

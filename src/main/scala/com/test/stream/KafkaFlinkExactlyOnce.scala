@@ -15,8 +15,8 @@ object KafkaFlinkExactlyOnce {
     val p = new Properties()
     p.setProperty("bootstrap.servers", "localhost:9092")
     p.setProperty("group.id", "test")
-
-    val streaming = env.addSource(new FlinkKafkaConsumer010[String]("test", new SimpleStringSchema(), p))
+    val kafkaConsumer010 = new FlinkKafkaConsumer010[String]("test", new SimpleStringSchema(), p)
+    val streaming = env.addSource(kafkaConsumer010)
 
     streaming.print()
 

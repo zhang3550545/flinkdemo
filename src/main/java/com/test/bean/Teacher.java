@@ -1,20 +1,21 @@
 package com.test.bean;
 
-public class Student {
+public class Teacher {
+
     public String name;
     public int age;
     public String sex;
-    public String sid;
+    public String tid;
     public long timestamp;
     public String classId;
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Teacher{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", sex='" + sex + '\'' +
-                ", sid='" + sid + '\'' +
+                ", tid='" + tid + '\'' +
                 ", timestamp=" + timestamp +
                 ", classId='" + classId + '\'' +
                 '}';

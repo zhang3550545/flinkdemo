@@ -1,6 +1,7 @@
 package com.test.operator;
 
 import com.google.gson.Gson;
+import com.test.bean.People;
 import com.test.bean.Student;
 import com.test.bean.Teacher;
 import org.apache.flink.api.common.functions.MapFunction;
@@ -53,21 +54,19 @@ public class ConnectOperator {
 
         ConnectedStreams<Student, Teacher> connect = student.connect(teacher);
 
-        connect
-                .process(new CoProcessFunction<Student, Teacher, Tuple5<String, Integer, String, String, Long>>() {
-                    @Override
-                    public void processElement1(Student value, Context ctx, Collector<Tuple5<String, Integer, String, String, Long>> out) throws Exception {
-                        out.collect(new Tuple5<>(value.name, value.age, value.sex, value.classId, value.timestamp));
-                    }
+        connect.process(new CoProcessFunction<Student, Teacher, Tuple5<String, Integer, String, String, Long>>() {
+            @Override
+            public void processElement1(Student value, Context ctx, Collector<Tuple5<String, Integer, String, String, Long>> out) throws Exception {
+                out.collect(new Tuple5<>(value.name, value.age, value.sex, value.classId, value.timestamp));
+            }
 
-                    @Override
-                    public void processElement2(Teacher value, Context ctx, Collector<Tuple5<String, Integer, String, String, Long>> out) throws Exception {
-                        out.collect(new Tuple5<>(value.name, value.age, value.sex, value.classId, value.timestamp));
-                    }
-                })
-                .print("process");
+            @Override
+            public void processElement2(Teacher value, Context ctx, Collector<Tuple5<String, Integer, String, String, Long>> out) throws Exception {
+                out.collect(new Tuple5<>(value.name, value.age, value.sex, value.classId, value.timestamp));
+            }
+        }).print("process");
 
-
+        // connect
         connect.map(new CoMapFunction<Student, Teacher, Tuple5<String, Integer, String, String, Long>>() {
             @Override
             public Tuple5<String, Integer, String, String, Long> map1(Student value) throws Exception {
@@ -81,7 +80,20 @@ public class ConnectOperator {
         }).print("map");
 
 
-        sEnv.execute("ConnectOperator");
+        // union
+        student.map(new MapFunction<Student, Tuple5<String, Integer, String, String, Long>>() {
+            @Override
+            public Tuple5<String, Integer, String, String, Long> map(Student value) throws Exception {
+                return new Tuple5<>(value.name, value.age, value.sex, value.classId, value.timestamp);
+            }
+        }).union(teacher.map(new MapFunction<Teacher, Tuple5<String, Integer, String, String, Long>>() {
+            @Override
+            public Tuple5<String, Integer, String, String, Long> map(Teacher value) throws Exception {
+                return new Tuple5<>(value.name, value.age, value.sex, value.classId, value.timestamp);
+            }
+        })).print("union");
 
+
+        sEnv.execute("ConnectOperator");
     }
 }

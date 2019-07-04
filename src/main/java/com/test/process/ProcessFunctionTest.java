@@ -38,10 +38,8 @@ public class ProcessFunctionTest {
                     @Override
                     public long extractAscendingTimestamp(UserAction element) {
                         try {
-                            long watermark = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss").parse(element.getUserActionTime()).getTime();
-                            System.out.println("watermark: " + element.getUserActionTime());
-                            return watermark;
-                        } catch (ParseException e) {
+                            return element.getUserActionTime();
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         return 0;
@@ -53,7 +51,9 @@ public class ProcessFunctionTest {
                         return value.getUserId();
                     }
                 })
-                .process(new CountWithTimeoutFunction())
+                // CountWithTimeoutEventTimeFunction：注册的是EventTime注册器
+                // CountWithTimeoutProcessingTimeFunction：注册的是ProcessingTime注册器
+                .process(new CountWithTimeoutEventTimeFunction())
                 .print();
 
         env.execute("ProcessFunctionTest");

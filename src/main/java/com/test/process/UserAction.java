@@ -6,7 +6,7 @@ public class UserAction implements Serializable {
     private int userId;
     private String page;
     private String action;
-    private String userActionTime;
+    private long userActionTime;
 
     public int getUserId() {
         return userId;
@@ -32,11 +32,11 @@ public class UserAction implements Serializable {
         this.action = action;
     }
 
-    public String getUserActionTime() {
+    public long getUserActionTime() {
         return userActionTime;
     }
 
-    public void setUserActionTime(String userActionTime) {
+    public void setUserActionTime(long userActionTime) {
         this.userActionTime = userActionTime;
     }
 

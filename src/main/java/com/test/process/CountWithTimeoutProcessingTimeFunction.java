@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.util.Collector;
 import scala.Tuple2;
 
-public class CountWithTimeoutFunction
+public class CountWithTimeoutProcessingTimeFunction
         extends KeyedProcessFunction<Integer, UserAction, Tuple2<Integer, Long>> {
 
     private ValueState<CountWithTimestamp> state;
@@ -25,7 +25,6 @@ public class CountWithTimeoutFunction
             Context ctx,
             Collector<Tuple2<Integer, Long>> out) throws Exception {
 
-        // retrieve the current count
         CountWithTimestamp current = state.value();
 
         if (current == null) {
@@ -36,11 +35,9 @@ public class CountWithTimeoutFunction
         current.count++;
         current.lastModified = ctx.timestamp();
 
-        // write the state back
         state.update(current);
 
-        // schedule the next timer 60 seconds from the current event time
-        ctx.timerService().registerEventTimeTimer(current.lastModified + 60000);
+        ctx.timerService().registerProcessingTimeTimer(current.lastModified + 60000);
     }
 
     @Override

@@ -14,6 +14,9 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
 
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
+import org.apache.flink.table.functions.AggregateFunction;
+import org.apache.flink.table.functions.TableFunction;
+import org.apache.flink.table.functions.TemporalTableFunction;
 
 import java.sql.Timestamp;
 import java.util.Properties;
@@ -39,11 +42,16 @@ public class TableWindowProcStream {
             }
         });
 
-        // 不能用 user
+        // 注册表 不能用 user
         tableEnv.registerDataStream("users", ds, "userId,name,age,sex,createTime,updateTime,procTime.proctime");
 
         Table table = tableEnv.sqlQuery("SELECT userId,name,age,sex,createTime,updateTime,procTime FROM users WHERE procTime BETWEEN procTime - INTERVAL '1' MINUTE AND procTime");
         table.printSchema();
+
+        // 添加时间属性字段 procTime，添加主键 userId
+        TemporalTableFunction function = table.createTemporalTableFunction("procTime", "userId");
+        tableEnv.registerFunction("addKeyed", function);
+
         tableEnv.toAppendStream(table, TypeInformation.of(new TypeHint<Tuple7<String, String, String, String, Long, Long, Timestamp>>() {
         })).print("result:");
 

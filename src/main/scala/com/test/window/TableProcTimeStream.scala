@@ -9,6 +9,7 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010
 import org.apache.flink.table.api.scala._
 import org.apache.flink.api.scala._
+import org.apache.flink.types.Row
 
 /**
   * author: zhangzhiqiang
@@ -33,16 +34,12 @@ object TableProcTimeStream {
 
     tableEnv.registerDataStream("users", ds, 'userId, 'name, 'age, 'sex, 'createTime, 'updateTime, 'procTime.proctime)
 
-    val table = tableEnv.sqlQuery("select userId,name,age,sex,createTime,updateTime from users")
+    val table = tableEnv.sqlQuery("select userId,name,age,sex,createTime,updateTime,procTime from users")
 
     // 将 procTime设置为时间属性，将 userId设置为 主键
     val rates = table.createTemporalTableFunction("procTime", "userId")
-    //tableEnv.registerFunction(""，rates)
 
-
-
-    //    tableEnv.toAppendStream(table, classOf[User])
-    //    tableEnv.toAppendStream()
+    tableEnv.toAppendStream[Row](table).print()
 
     env.execute()
   }

@@ -6,7 +6,7 @@ import org.apache.flink.api.common.typeinfo.Types
 import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.table.api.scala.StreamTableEnvironment
-import org.apache.flink.table.descriptors.{Json, Kafka, Schema}
+import org.apache.flink.table.descriptors.{Json, Kafka, Rowtime, Schema}
 import org.apache.flink.types.Row
 
 object ReadKafkaStreamJob3 {
@@ -29,6 +29,8 @@ object ReadKafkaStreamJob3 {
       .field("sex", Types.STRING)
       .field("sid", Types.STRING)
       .field("timestamp", Types.BIG_DEC)
+      .field("rowTime", Types.SQL_TIMESTAMP).rowtime(new Rowtime().timestampsFromField("timestamp").watermarksPeriodicBounded(60000))
+      .field("procTime", Types.SQL_TIMESTAMP).proctime()
 
     tableEnv.connect(kafka)
       .withSchema(schema)

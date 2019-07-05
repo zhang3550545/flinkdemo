@@ -93,7 +93,7 @@ public class JoinAndCoGroupOperator {
                 .apply(new JoinFunction<Order, User, Tuple7<String, String, String, String, String, String, Long>>() {
                     @Override
                     public Tuple7<String, String, String, String, String, String, Long> join(Order order, User user) throws Exception {
-                        return new Tuple7<>(user.userId, user.name, user.age, order.userId, order.orderId, order.price, order.timestamp);
+                        return new Tuple7<>(user.userId, user.name, user.age, order.userId, order.orderId, order.price, order.orderTime);
                     }
                 })
                 .print("order join user");

@@ -53,7 +53,7 @@ public class AsyncIOFunctionTest {
                     @Override
                     public long extractAscendingTimestamp(Order element) {
                         try {
-                            return element.timestamp;
+                            return element.orderTime;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -93,7 +93,7 @@ public class AsyncIOFunctionTest {
                             String name = resultSet.getString("name");
                             int age = resultSet.getInt("age");
                             String sex = resultSet.getString("sex");
-                            Tuple7<String, String, Integer, String, String, String, Long> res = Tuple7.of(userId, name, age, sex, input.orderId, input.price, input.timestamp);
+                            Tuple7<String, String, Integer, String, String, String, Long> res = Tuple7.of(userId, name, age, sex, input.orderId, input.price, input.orderTime);
                             list.add(res);
                         }
 

@@ -70,7 +70,7 @@ public class BroadcastStream {
                                     value.userId,
                                     value.orderId,
                                     value.price,
-                                    value.timestamp,
+                                    value.orderTime,
                                     user.name,
                                     user.age,
                                     user.sex,

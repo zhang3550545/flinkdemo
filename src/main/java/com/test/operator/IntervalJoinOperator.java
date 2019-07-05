@@ -46,7 +46,7 @@ public class IntervalJoinOperator {
                 }).assignTimestampsAndWatermarks(new AscendingTimestampExtractor<Order>() {
                     @Override
                     public long extractAscendingTimestamp(Order element) {
-                        return element.timestamp;
+                        return element.orderTime;
                     }
                 });
 
@@ -80,7 +80,7 @@ public class IntervalJoinOperator {
                 .process(new ProcessJoinFunction<Order, User, Tuple7<String, String, String, String, String, String, Long>>() {
                     @Override
                     public void processElement(Order order, User user, Context ctx, Collector<Tuple7<String, String, String, String, String, String, Long>> out) throws Exception {
-                        out.collect(new Tuple7<>(user.userId, user.name, user.age, order.userId, order.orderId, order.price, order.timestamp));
+                        out.collect(new Tuple7<>(user.userId, user.name, user.age, order.userId, order.orderId, order.price, order.orderTime));
                     }
                 })
                 .print();

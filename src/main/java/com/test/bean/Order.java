@@ -4,7 +4,7 @@ public class Order {
     public String orderId;
     public String userId;
     public String price;
-    public long timestamp;
+    public long orderTime;
 
     @Override
     public String toString() {
@@ -12,7 +12,7 @@ public class Order {
                 "orderId='" + orderId + '\'' +
                 ", userId='" + userId + '\'' +
                 ", price='" + price + '\'' +
-                ", timestamp=" + timestamp +
+                ", orderTime=" + orderTime +
                 '}';
     }
 }

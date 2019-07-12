@@ -6,6 +6,7 @@ import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.table.api.scala.BatchTableEnvironment
 import org.apache.flink.api.scala._
 import org.apache.flink.table.sources.CsvTableSource
+import org.apache.flink.types.Row
 
 /**
   * 直接通过tableEnv的api读取数据，并注册表
@@ -33,7 +34,7 @@ object ReadTableCsvFile3 {
     val table = tableEnv.sqlQuery("select * from student")
     table.printSchema()
 
-    tableEnv.toDataSet[Student](table).print()
+    tableEnv.toDataSet[Row](table).print()
   }
 
 }

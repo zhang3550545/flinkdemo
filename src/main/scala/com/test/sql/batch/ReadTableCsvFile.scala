@@ -4,6 +4,7 @@ import com.test.bean.Student
 import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.table.api.TableEnvironment
 import org.apache.flink.api.scala._
+import org.apache.flink.types.Row
 
 /**
   * 使用 batch env的api 读取数据，返回DataSet对象
@@ -27,6 +28,6 @@ object ReadTableCsvFile {
 
     result.printSchema()
 
-    tableEnv.toDataSet[Student](result).print()
+    tableEnv.toDataSet[Row](result).print()
   }
 }

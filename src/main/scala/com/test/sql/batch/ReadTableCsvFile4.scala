@@ -8,6 +8,7 @@ import org.apache.flink.table.descriptors.{Csv, FileSystem, OldCsv, Schema}
 import org.apache.flink.api.scala._
 import org.apache.flink.shaded.jackson2.com.fasterxml.jackson.dataformat.csv.CsvSchema
 import org.apache.flink.table.api.TableSchema
+import org.apache.flink.types.Row
 
 /**
   * 使用 table env的connect的方式进行直接注册
@@ -39,6 +40,6 @@ object ReadTableCsvFile4 {
     val table = tableEnv.sqlQuery("select * from student")
     table.printSchema()
 
-    tableEnv.toDataSet[Student](table).print()
+    tableEnv.toDataSet[Row](table).print()
   }
 }

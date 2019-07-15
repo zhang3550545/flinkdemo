@@ -20,7 +20,7 @@ import java.util.Properties;
  * @author zhangzhiqiang
  * @date 2019/7/10 10:11
  */
-public class RMQAndBucketFileConnectSink {
+public class RmqAndBucketFileConnectSink {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
@@ -81,6 +81,6 @@ public class RMQAndBucketFileConnectSink {
         ds.addSink(bucketingSink);
 
 
-        env.execute("RMQAndBucketFileConnectSink");
+        env.execute("RmqAndBucketFileConnectSink");
     }
 }

@@ -40,10 +40,11 @@ public class SqlSinkFileSystemStream {
                 .field("updateTime", Types.BIG_DEC)
                 .build();
 
-        Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "dev-hdp-2.huazhu.com:6667,dev-hdp-3.huazhu.com:6667,dev-hdp-4.huazhu.com:6667");
-        p.setProperty("group.id", "test");
-        Kafka kafka = new Kafka().properties(p).topic("user").version("0.10");
+        Kafka kafka = new Kafka()
+                .topic("user")
+                .property("bootstrap.servers", "dev-hdp-2.huazhu.com:6667,dev-hdp-3.huazhu.com:6667,dev-hdp-4.huazhu.com:6667")
+                .property("group.id", "test")
+                .version("0.10");
 
         tableEnv.connect(kafka)
                 .withSchema(schema)

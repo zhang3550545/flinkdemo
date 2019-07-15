@@ -38,8 +38,6 @@ public class SqlTumbleWindowProcessTimeStream {
                 .field("sex", Types.STRING)
                 .field("createTime", Types.BIG_DEC)
                 .field("updateTime", Types.BIG_DEC)
-                // 设置 rowtime，把字段timestamp设置为Event Time的水印时间戳
-                //.field("rowTime", Types.SQL_TIMESTAMP).rowtime(new Rowtime().timestampsFromField("createTime").watermarksPeriodicBounded(60000))
                 // 设置 Processing Time
                 .field("procTime", Types.SQL_TIMESTAMP).proctime();
 

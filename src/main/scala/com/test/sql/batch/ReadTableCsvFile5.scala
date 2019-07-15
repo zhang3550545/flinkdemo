@@ -26,6 +26,7 @@ object ReadTableCsvFile5 {
 
     val rowInfos: TypeInformation[Row] = createTypeInformation[Row]
 
+    // schema 有问题，运行报错
     val format = new Csv()
       .schema(rowInfos)
       .fieldDelimiter(',')

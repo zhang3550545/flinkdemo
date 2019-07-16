@@ -11,8 +11,6 @@ import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.table.descriptors.*;
 import org.apache.flink.types.Row;
 
-import java.util.Properties;
-
 /**
  * @author zhangzhiqiang
  * @date 2019/7/15 17:02

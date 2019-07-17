@@ -1,13 +1,14 @@
 package com.test.table;
 
+import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.common.typeinfo.Types;
+import org.apache.flink.api.java.typeutils.RowTypeInfo;
 import org.apache.flink.formats.json.JsonRowSerializationSchema;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.elasticsearch.ElasticsearchUpsertTableSinkBase;
 import org.apache.flink.streaming.connectors.elasticsearch.util.IgnoringFailureHandler;
 import org.apache.flink.streaming.connectors.elasticsearch6.Elasticsearch6UpsertTableSink;
-import org.apache.flink.streaming.connectors.elasticsearch6.Elasticsearch6UpsertTableSinkFactory;
 import org.apache.flink.table.api.StreamQueryConfig;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableSchema;
@@ -30,14 +31,13 @@ public class SqlSinkElasticSearchStream2 {
         env.setParallelism(1);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
-
         TableSchema tableSchema = new TableSchema.Builder()
                 .field("userId", Types.STRING)
                 .field("name", Types.STRING)
                 .field("age", Types.STRING)
                 .field("sex", Types.STRING)
-                .field("createTime", Types.LONG)
-                .field("updateTime", Types.LONG)
+                .field("createTime", Types.BIG_DEC)
+                .field("updateTime", Types.BIG_DEC)
                 .build();
 
         Schema schema = new Schema()
@@ -45,8 +45,8 @@ public class SqlSinkElasticSearchStream2 {
                 .field("name", Types.STRING)
                 .field("age", Types.STRING)
                 .field("sex", Types.STRING)
-                .field("createTime", Types.LONG)
-                .field("updateTime", Types.LONG);
+                .field("createTime", Types.BIG_DEC)
+                .field("updateTime", Types.BIG_DEC);
 
 
         tableEnv
@@ -57,7 +57,7 @@ public class SqlSinkElasticSearchStream2 {
                                 .property("group.id", "test")
                                 .version("0.10")
                 )
-                .withSchema(schema)
+                .withSchema(new Schema().schema(tableSchema))
                 .withFormat(new Json().deriveSchema())
                 .inAppendMode()
                 .registerTableSource("Users");
@@ -82,13 +82,16 @@ public class SqlSinkElasticSearchStream2 {
         ElasticsearchUpsertTableSinkBase.Host host = new ElasticsearchUpsertTableSinkBase.Host("localhost", 9200, "http");
         hosts.add(host);
 
+        TypeInformation<?>[] types = new TypeInformation[]{Types.STRING, Types.STRING, Types.STRING, Types.STRING, Types.BIG_DEC, Types.BIG_DEC};
+        String[] names = new String[]{"userId", "name", "age", "sex", "createTime", "updateTime"};
+        RowTypeInfo typeInfo = new RowTypeInfo(types, names);
+
+        SerializationSchema<Row> schemaRow = new JsonRowSerializationSchema(typeInfo);
+
         Elasticsearch6UpsertTableSink sink = new Elasticsearch6UpsertTableSink(
                 true, tableSchema, hosts, "test", "test",
                 "_", "null",
-                // Caused by: java.lang.ClassCastException: org.apache.flink.api.java.typeutils.GenericTypeInfo
-                // cannot be cast to org.apache.flink.api.java.typeutils.RowTypeInfo
-                // todo 这里有问题
-                new JsonRowSerializationSchema(TypeInformation.of(Row.class)),
+                schemaRow,
                 XContentType.JSON, new IgnoringFailureHandler(), map);
 
         tableEnv.writeToSink(table, sink, new StreamQueryConfig());

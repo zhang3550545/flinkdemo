@@ -23,6 +23,7 @@ public class SqlSinkJdbcStream {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
+        // 必须设置checkpoint的间隔时间，不然不会写入jdbc
         env.enableCheckpointing(5000);
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 

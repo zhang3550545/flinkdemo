@@ -1,7 +1,8 @@
 package com.test.sql.batch
 
 
-import org.apache.flink.api.common.typeinfo.{TypeInformation, Types}
+import org.apache.flink.api.common.typeinfo.{TypeHint, TypeInformation, Types}
+import org.apache.flink.api.java.typeutils.RowTypeInfo
 import org.apache.flink.api.scala.{ExecutionEnvironment, _}
 import org.apache.flink.table.api.scala.BatchTableEnvironment
 import org.apache.flink.table.descriptors.{Csv, FileSystem, Schema}
@@ -24,7 +25,9 @@ object ReadTableCsvFile5 {
       .field("sex", Types.STRING)
       .field("sid", Types.STRING)
 
-    val rowInfos: TypeInformation[Row] = createTypeInformation[Row]
+    val types: Array[TypeInformation[_]] = Array(Types.STRING, Types.INT, Types.STRING, Types.STRING)
+    val names: Array[String] = Array("name", "age", "sex", "sid")
+    val rowInfos = new RowTypeInfo(types, names)
 
     // schema 有问题，运行报错
     val format = new Csv()

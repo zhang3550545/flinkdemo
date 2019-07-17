@@ -15,7 +15,6 @@ import org.apache.flink.types.Row;
 /**
  * @author zhangzhiqiang
  * @date 2019/7/16 10:29
- * elasticsearch没跑通。。。
  */
 public class SqlSinkElasticSearchStream {
     public static void main(String[] args) throws Exception {
@@ -80,9 +79,9 @@ public class SqlSinkElasticSearchStream {
                                 // 设置刷新大容量请求时要使用的指数回退类型。
                                 //.bulkFlushBackoffExponential()
                                 // 设置同一请求多次重试时的最大超时（毫秒）
-                                .connectionMaxRetryTimeout(3)
-                        // 向每个REST通信添加路径前缀
-                        //.connectionPathPrefix("/v1")
+                                //.connectionMaxRetryTimeout(3)
+                                // 向每个REST通信添加路径前缀
+                                //.connectionPathPrefix("/v1")
                 )
                 .withSchema(schema)
                 .withFormat(new Json().deriveSchema())

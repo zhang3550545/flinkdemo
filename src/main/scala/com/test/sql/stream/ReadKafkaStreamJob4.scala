@@ -20,7 +20,7 @@ object ReadKafkaStreamJob4 {
     sEnv.setParallelism(1)
 
     val p = new Properties()
-    p.setProperty("bootstrap.servers", "10.105.18.175:9092")
+    p.setProperty("bootstrap.servers", "localhost:9092")
     p.setProperty("group.id", "test")
 
     val tableSchema = new TableSchema.Builder()

@@ -34,7 +34,7 @@ public class IntervalJoinOperator {
         sEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "10.105.18.175:9092");
+        p.setProperty("bootstrap.servers", "localhost:9092");
 
         SingleOutputStreamOperator<Order> order = sEnv
                 .addSource(new FlinkKafkaConsumer010<String>("order", new SimpleStringSchema(), p))

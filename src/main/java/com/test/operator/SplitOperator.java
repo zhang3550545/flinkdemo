@@ -21,7 +21,7 @@ public class SplitOperator {
         sEnv.setParallelism(1);
 
         Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "10.105.18.175:9092");
+        p.setProperty("bootstrap.servers", "localhost:9092");
 
         DataStreamSource<String> source = sEnv.addSource(new FlinkKafkaConsumer010<String>("people", new SimpleStringSchema(), p));
 

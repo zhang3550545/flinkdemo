@@ -26,7 +26,7 @@ public class SqlTumbleWindowEventTimeStream {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "dev-hdp-2.huazhu.com:6667,dev-hdp-3.huazhu.com:6667,dev-hdp-4.huazhu.com:6667");
+        p.setProperty("bootstrap.servers", "localhost:9092");
         p.setProperty("group.id", "test");
 
         Kafka kafka = new Kafka().properties(p).topic("user").version("0.10");

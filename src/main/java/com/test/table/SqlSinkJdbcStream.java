@@ -37,7 +37,7 @@ public class SqlSinkJdbcStream {
 
         tableEnv
                 .connect(
-                        new Kafka().version("0.10").topic("user").property("bootstrap.servers", "dev-hdp-2.huazhu.com:6667")
+                        new Kafka().version("0.10").topic("user").property("bootstrap.servers", "localhost:9092")
                 )
                 .withSchema(schema)
                 .withFormat(new Json().deriveSchema())

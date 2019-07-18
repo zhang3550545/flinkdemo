@@ -34,7 +34,7 @@ public class TableWindowProcStream {
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
         Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "dev-hdp-2.huazhu.com:6667,dev-hdp-3.huazhu.com:6667,dev-hdp-4.huazhu.com:6667");
+        p.setProperty("bootstrap.servers", "localhost:9092");
         SingleOutputStreamOperator<User> ds = env.addSource(new FlinkKafkaConsumer010<String>("user", new SimpleStringSchema(), p)).map(new MapFunction<String, User>() {
             @Override
             public User map(String value) throws Exception {

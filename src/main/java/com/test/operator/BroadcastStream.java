@@ -30,7 +30,7 @@ public class BroadcastStream {
         env.setParallelism(1);
 
         Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "dev-hdp-2.huazhu.com:6667,dev-hdp-3.huazhu.com:6667,dev-hdp-4.huazhu.com:6667");
+        p.setProperty("bootstrap.servers", "localhost:9092");
 
         SingleOutputStreamOperator<User> user = env
                 .addSource(new FlinkKafkaConsumer010<String>("user", new SimpleStringSchema(), p))

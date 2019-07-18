@@ -16,7 +16,7 @@ class HBaseSink(tableName: String, family: String) extends RichSinkFunction[Stri
   override def open(parameters: Configuration): Unit = {
     super.open(parameters)
     val conf = HBaseConfiguration.create()
-    conf.set(HConstants.ZOOKEEPER_QUORUM, "192.168.32.157")
+    conf.set(HConstants.ZOOKEEPER_QUORUM, "localhost:2181")
     conn = ConnectionFactory.createConnection(conf)
   }
 

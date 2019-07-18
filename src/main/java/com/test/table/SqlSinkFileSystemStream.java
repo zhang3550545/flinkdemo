@@ -40,7 +40,7 @@ public class SqlSinkFileSystemStream {
 
         Kafka kafka = new Kafka()
                 .topic("user")
-                .property("bootstrap.servers", "dev-hdp-2.huazhu.com:6667,dev-hdp-3.huazhu.com:6667,dev-hdp-4.huazhu.com:6667")
+                .property("bootstrap.servers", "localhost:9092")
                 .property("group.id", "test")
                 .version("0.10");
 

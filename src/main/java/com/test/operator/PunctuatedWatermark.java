@@ -20,7 +20,7 @@ public class PunctuatedWatermark {
 
 
         Properties p = new Properties();
-        p.setProperty("bootstrap.servers", "10.105.18.175:9092");
+        p.setProperty("bootstrap.servers", "localhost:9092");
 
         SingleOutputStreamOperator<Student> student = sEnv
                 .addSource(new FlinkKafkaConsumer010<String>("student", new SimpleStringSchema(), p))

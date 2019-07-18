@@ -40,8 +40,6 @@ public class TypeInfomationRows {
         });
 
 
-
-
         env.execute("TypeInfomationRows");
     }
 }

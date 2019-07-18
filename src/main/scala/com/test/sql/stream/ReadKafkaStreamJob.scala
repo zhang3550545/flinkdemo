@@ -19,7 +19,7 @@ object ReadKafkaStreamJob {
     val tableEnv = StreamTableEnvironment.create(sEnv)
 
     val p = new Properties()
-    p.setProperty("bootstrap.servers", "10.105.18.175:9092")
+    p.setProperty("bootstrap.servers", "localhost:9092")
     p.setProperty("group.id", "test")
 
     val ds: DataStream[Student] = sEnv.addSource[String](new FlinkKafkaConsumer010[String]("test", new SimpleStringSchema(), p))

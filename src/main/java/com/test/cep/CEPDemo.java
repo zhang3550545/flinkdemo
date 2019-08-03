@@ -49,13 +49,13 @@ public class CEPDemo {
                     @Override
                     public long extractAscendingTimestamp(Event element) {
 
-                        return element.timestamp();
+                        return element.getTimestamp();
                     }
                 }).keyBy(new KeySelector<Event, String>() {
 
                     @Override
                     public String getKey(Event value) throws Exception {
-                        return value.driverId();
+                        return value.getDriverId();
                     }
                 });
 
@@ -64,19 +64,19 @@ public class CEPDemo {
                 .where(new SimpleCondition<Event>() {
                     @Override
                     public boolean filter(Event value) throws Exception {
-                        return value.event().equals("login");
+                        return value.getEvent().equals("login");
                     }
                 })
                 .next("second").where(new SimpleCondition<Event>() {
                     @Override
                     public boolean filter(Event value) throws Exception {
-                        return value.event().equals("my");
+                        return value.getEvent().equals("my");
                     }
                 })
                 .followedBy("end").where(new SimpleCondition<Event>() {
                     @Override
                     public boolean filter(Event value) throws Exception {
-                        return value.event().equals("ling quan");
+                        return value.getEvent().equals("ling quan");
                     }
                 })
                 .within(Time.minutes(5))

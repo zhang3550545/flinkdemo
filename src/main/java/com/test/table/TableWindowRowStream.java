@@ -30,7 +30,6 @@ public class TableWindowRowStream {
 
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
 
-
         Properties p = new Properties();
         p.setProperty("bootstrap.servers", "localhost:9092");
         SingleOutputStreamOperator<User> ds = env

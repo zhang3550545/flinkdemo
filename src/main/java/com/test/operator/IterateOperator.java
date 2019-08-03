@@ -36,7 +36,7 @@ public class IterateOperator {
         SingleOutputStreamOperator<People> feedback = iterate.filter(new FilterFunction<People>() {
             @Override
             public boolean filter(People value) throws Exception {
-                return "caocao".equals(value.name());
+                return "caocao".equals(value.getName());
             }
         });
 
@@ -48,7 +48,7 @@ public class IterateOperator {
         SingleOutputStreamOperator<People> result = iterate.filter(new FilterFunction<People>() {
             @Override
             public boolean filter(People value) throws Exception {
-                return !"caocao".equals(value.name());
+                return !"caocao".equals(value.getName());
             }
         });
 
@@ -60,7 +60,7 @@ public class IterateOperator {
             @Override
             public Iterable<String> select(People value) {
                 ArrayList<String> list = new ArrayList<>();
-                if ("male".equals(value.sex())) {
+                if ("male".equals(value.getSex())) {
                     list.add("male");
                 } else {
                     list.add("female");

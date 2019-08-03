@@ -34,7 +34,7 @@ public class SplitOperator {
             @Override
             public Iterable<String> select(People value) {
                 List<String> list = new ArrayList<>();
-                if (value.sex().equals("male")) {
+                if (value.getSex().equals("male")) {
                     list.add("male");
                 } else {
                     list.add("female");
